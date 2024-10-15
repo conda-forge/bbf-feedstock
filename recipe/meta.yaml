@@ -43,7 +43,7 @@ requirements:
     - scikit-sparse
     - scipy >=1.10
     - sncosmo
-    - sparse_dot_mkl # [not arm64]
+    - sparse_dot_mkl  # [not arm64]
 
 test:
   imports:
