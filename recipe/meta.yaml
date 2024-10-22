@@ -52,13 +52,14 @@ test:
     - bbf
   commands:
     - pip check
-    - pip install gaiaxpy
+    - pip install gaiaxpy lemaitre-bandpasses
     - pytest -v tests
   source_files:
     - tests
   requires:
     - pip
     - pytest
+    - pytest-cov
 
 about:
   home: https://gitlab.in2p3.fr/lemaitre/bbf
