@@ -57,6 +57,7 @@ test:
   source_files:
     - tests
   requires:
+    - git
     - pip
     - pytest
     - pytest-cov
