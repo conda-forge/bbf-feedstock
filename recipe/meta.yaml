@@ -52,7 +52,7 @@ test:
     - bbf
   commands:
     - pip check
-    - pip install gaiaxpy lemaitre-bandpasses
+    - pip install gaiaxpy lemaitre-bandpasses git+https://github.com/nregnault/sncosmo.git
     - pytest -v tests
   source_files:
     - tests
