@@ -40,7 +40,7 @@ requirements:
     - getcalspec
     - healpy
     - matplotlib-base
-    - numpy>=2
+    - numpy >=2
     - pandas
     - platformdirs
     - scikit-sparse
@@ -52,7 +52,6 @@ test:
   imports:
     - bbf
   commands:
-    #- pip check
     - pip install lemaitre-bandpasses@git+https://gitlab.in2p3.fr/lemaitre/bandpasses.git@36d78489
     - pytest -v tests
   source_files:
