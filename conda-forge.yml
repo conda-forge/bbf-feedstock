@@ -3,6 +3,7 @@ github:
   tooling_branch_name: main
 conda_build:
   error_overlinking: true
+conda_install_tool: pixi
 conda_forge_output_validation: true
 # added after https://conda-forge.org/blog/2020/10/29/macos-arm64 in order to
 # build the package for osx-arm64

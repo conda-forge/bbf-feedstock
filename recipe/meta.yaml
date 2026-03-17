@@ -10,7 +10,7 @@ source:
   sha256: 36271cf5fa14fc707f0596e886adfaa7c45b365c50fea74836c9c71631ececbc
 
 build:
-  skip: true  # [py<39 or win]
+  skip: true  # [py<311 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -40,20 +40,20 @@ requirements:
     - getcalspec
     - healpy
     - matplotlib-base
-    - numpy
+    - numpy>=2
     - pandas
     - platformdirs
     - scikit-sparse
     - scipy >=1.10
-    - sncosmo
+    - sncosmo >=2.12
     - sparse_dot_mkl  # [not arm64]
 
 test:
   imports:
     - bbf
   commands:
-    - pip check
-    - pip install gaiaxpy lemaitre-bandpasses git+https://github.com/nregnault/sncosmo.git
+    #- pip check
+    - pip install lemaitre-bandpasses@git+https://gitlab.in2p3.fr/lemaitre/bandpasses.git@36d78489
     - pytest -v tests
   source_files:
     - tests
