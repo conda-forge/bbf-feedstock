@@ -10,7 +10,7 @@ source:
   sha256: 36271cf5fa14fc707f0596e886adfaa7c45b365c50fea74836c9c71631ececbc
 
 build:
-  skip: true  # [py<311 or win]
+  skip: true  # [py<311 or py>=313 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -29,6 +29,7 @@ requirements:
     - python
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
+    - git-lfs  # [osx]
     - scikit-build-core >=0.4.3
     - nanobind >=1.3.2
     - pip
