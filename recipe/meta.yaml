@@ -29,14 +29,12 @@ requirements:
     - python
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
-    - git-lfs  # [osx]
     - scikit-build-core >=0.4.3
     - nanobind >=1.3.2
     - pip
   run:
     - python
     - astropy
-    - fastparquet
     - gaiaxpy
     - getcalspec
     - healpy
@@ -58,9 +56,8 @@ test:
   source_files:
     - tests
   requires:
-    - {{ compiler("c") }}
-    - {{ stdlib("c") }}
     - git
+    - git-lfs
     - pip
     - pytest
     - pytest-cov
