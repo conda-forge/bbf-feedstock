@@ -58,6 +58,7 @@ test:
   requires:
     - git
     - git-lfs
+    - numba>=0.60.0  # from pandas[parquet,performance]->lemaitre-bandpasses==0.4.0
     - pip
     - pytest
     - pytest-cov
