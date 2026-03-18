@@ -44,15 +44,6 @@ description = "Debug bbf-feedstock with variant linux_64_python3.12.____cpython 
 [tasks."inspect-linux_64_python3.12.____cpython"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_python3.12.____cpython.yaml"
 description = "List contents of bbf-feedstock packages built for variant linux_64_python3.12.____cpython"
-[tasks."build-linux_64_python3.13.____cp313"]
-cmd = "conda-build build recipe -m .ci_support/linux_64_python3.13.____cp313.yaml --suppress-variables --clobber-file .ci_support/clobber_linux_64_python3.13.____cp313.yaml"
-description = "Build bbf-feedstock with variant linux_64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."debug-linux_64_python3.13.____cp313"]
-cmd = "conda-build debug recipe -m .ci_support/linux_64_python3.13.____cp313.yaml"
-description = "Debug bbf-feedstock with variant linux_64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."inspect-linux_64_python3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_python3.13.____cp313.yaml"
-description = "List contents of bbf-feedstock packages built for variant linux_64_python3.13.____cp313"
 [tasks."build-osx_64_python3.11.____cpython"]
 cmd = "conda-build build recipe -m .ci_support/osx_64_python3.11.____cpython.yaml --suppress-variables --clobber-file .ci_support/clobber_osx_64_python3.11.____cpython.yaml"
 description = "Build bbf-feedstock with variant osx_64_python3.11.____cpython directly (without setup scripts)"
@@ -71,15 +62,6 @@ description = "Debug bbf-feedstock with variant osx_64_python3.12.____cpython di
 [tasks."inspect-osx_64_python3.12.____cpython"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_python3.12.____cpython.yaml"
 description = "List contents of bbf-feedstock packages built for variant osx_64_python3.12.____cpython"
-[tasks."build-osx_64_python3.13.____cp313"]
-cmd = "conda-build build recipe -m .ci_support/osx_64_python3.13.____cp313.yaml --suppress-variables --clobber-file .ci_support/clobber_osx_64_python3.13.____cp313.yaml"
-description = "Build bbf-feedstock with variant osx_64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."debug-osx_64_python3.13.____cp313"]
-cmd = "conda-build debug recipe -m .ci_support/osx_64_python3.13.____cp313.yaml"
-description = "Debug bbf-feedstock with variant osx_64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."inspect-osx_64_python3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_python3.13.____cp313.yaml"
-description = "List contents of bbf-feedstock packages built for variant osx_64_python3.13.____cp313"
 [tasks."build-osx_arm64_python3.11.____cpython"]
 cmd = "conda-build build recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml --suppress-variables --clobber-file .ci_support/clobber_osx_arm64_python3.11.____cpython.yaml"
 description = "Build bbf-feedstock with variant osx_arm64_python3.11.____cpython directly (without setup scripts)"
@@ -98,15 +80,6 @@ description = "Debug bbf-feedstock with variant osx_arm64_python3.12.____cpython
 [tasks."inspect-osx_arm64_python3.12.____cpython"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml"
 description = "List contents of bbf-feedstock packages built for variant osx_arm64_python3.12.____cpython"
-[tasks."build-osx_arm64_python3.13.____cp313"]
-cmd = "conda-build build recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml --suppress-variables --clobber-file .ci_support/clobber_osx_arm64_python3.13.____cp313.yaml"
-description = "Build bbf-feedstock with variant osx_arm64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."debug-osx_arm64_python3.13.____cp313"]
-cmd = "conda-build debug recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml"
-description = "Debug bbf-feedstock with variant osx_arm64_python3.13.____cp313 directly (without setup scripts)"
-[tasks."inspect-osx_arm64_python3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml"
-description = "List contents of bbf-feedstock packages built for variant osx_arm64_python3.13.____cp313"
 
 [feature.smithy.dependencies]
 conda-smithy = "*"
