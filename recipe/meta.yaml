@@ -51,7 +51,7 @@ test:
   imports:
     - bbf
   commands:
-    - pip install lemaitre-bandpasses@git+https://gitlab.in2p3.fr/lemaitre/bandpasses.git@36d78489
+    - pip install lemaitre-bandpasses==0.4.0
     - pytest -v tests
   source_files:
     - tests
