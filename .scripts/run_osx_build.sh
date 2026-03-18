@@ -6,29 +6,31 @@ source .scripts/logging_utils.sh
 
 set -xe
 
-MINIFORGE_HOME=${MINIFORGE_HOME:-${HOME}/miniforge3}
-
-( startgroup "Installing a fresh version of Miniforge" ) 2> /dev/null
-
-MINIFORGE_URL="https://github.com/conda-forge/miniforge/releases/latest/download"
-MINIFORGE_FILE="Miniforge3-MacOSX-$(uname -m).sh"
-curl -L -O "${MINIFORGE_URL}/${MINIFORGE_FILE}"
-rm -rf ${MINIFORGE_HOME}
-bash $MINIFORGE_FILE -b -p ${MINIFORGE_HOME}
-
-( endgroup "Installing a fresh version of Miniforge" ) 2> /dev/null
+MINIFORGE_HOME="${MINIFORGE_HOME:-${HOME}/miniforge3}"
+MINIFORGE_HOME="${MINIFORGE_HOME%/}" # remove trailing slash
+export CONDA_BLD_PATH="${CONDA_BLD_PATH:-${MINIFORGE_HOME}/conda-bld}"
+( startgroup "Provisioning base env with pixi" ) 2> /dev/null
+mkdir -p "${MINIFORGE_HOME}"
+curl -fsSL https://pixi.sh/install.sh | bash
+export PATH="~/.pixi/bin:$PATH"
+arch=$(uname -m)
+if [[ "$arch" == "x86_64" ]]; then
+  arch="64"
+fi
+sed -i.bak "s/platforms = .*/platforms = [\"osx-${arch}\"]/" pixi.toml
+echo "Creating environment"
+pixi install
+pixi list
+echo "Activating environment"
+eval "$(pixi shell-hook)"
+mv pixi.toml.bak pixi.toml
+( endgroup "Provisioning base env with pixi" ) 2> /dev/null
 
 ( startgroup "Configuring conda" ) 2> /dev/null
-
-source ${MINIFORGE_HOME}/etc/profile.d/conda.sh
-conda activate base
 export CONDA_SOLVER="libmamba"
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
-mamba install --update-specs --quiet --yes --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
-mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
+
 
 
 
@@ -49,6 +51,25 @@ fi
 
 if [[ "${sha:-}" == "" ]]; then
   sha=$(git rev-parse HEAD)
+fi
+
+if [[ "${OSX_SDK_DIR:-}" == "" ]]; then
+  if [[ "${CI:-}" == "" ]]; then
+    echo "Please set OSX_SDK_DIR to a directory where SDKs can be downloaded to. Aborting"
+    exit 1
+  else
+    export OSX_SDK_DIR=/opt/conda-sdks
+    /usr/bin/sudo mkdir -p "${OSX_SDK_DIR}"
+    /usr/bin/sudo chown "${USER}" "${OSX_SDK_DIR}"
+  fi
+else
+  if tmpf=$(mktemp -p "$OSX_SDK_DIR" tmp.XXXXXXXX 2>/dev/null); then
+      rm -f "$tmpf"
+      echo "OSX_SDK_DIR is writeable without sudo, continuing"
+  else
+      echo "User-provided OSX_SDK_DIR is not writeable for current user! Aborting"
+      exit 1
+  fi
 fi
 
 echo -e "\n\nRunning the build setup script."

@@ -20,6 +20,7 @@ export PYTHONUNBUFFERED=1
 export RECIPE_ROOT="${RECIPE_ROOT:-/home/conda/recipe_root}"
 export CI_SUPPORT="${FEEDSTOCK_ROOT}/.ci_support"
 export CONFIG_FILE="${CI_SUPPORT}/${CONFIG}.yaml"
+export RATTLER_CACHE_DIR="${FEEDSTOCK_ROOT}/build_artifacts/pkg_cache"
 
 cat >~/.condarc <<CONDARC
 
@@ -31,12 +32,20 @@ pkgs_dirs:
 solver: libmamba
 
 CONDARC
+pushd "${FEEDSTOCK_ROOT}"
+arch=$(uname -m)
+if [[ "$arch" == "x86_64" ]]; then
+  arch="64"
+fi
+sed -i.bak -e "s/platforms = .*/platforms = [\"linux-${arch}\"]/" -e "s/# __PLATFORM_SPECIFIC_ENV__ =/docker-build-linux-$arch =/" pixi.toml
+echo "Creating environment"
+PIXI_CACHE_DIR=/opt/conda pixi install --environment docker-build-linux-$arch
+pixi list
+echo "Activating environment"
+eval "$(pixi shell-hook --environment docker-build-linux-$arch)"
+mv pixi.toml.bak pixi.toml
+popd
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
-
-mamba install --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
-mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
