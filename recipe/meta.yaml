@@ -1,5 +1,5 @@
 {% set name = "bbf" %}
-{% set version = "0.6.1" %}
+{% set version = "0.7.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 36271cf5fa14fc707f0596e886adfaa7c45b365c50fea74836c9c71631ececbc
+  sha256: 8b150f42f55c5e24048b7a34654fcf9e47fd3b8696a61071464b57fe378a4b93
 
 build:
   skip: true  # [py<311 or py>=313 or win]
@@ -51,13 +51,14 @@ test:
   imports:
     - bbf
   commands:
-    - pip install lemaitre-bandpasses@git+https://gitlab.in2p3.fr/lemaitre/bandpasses.git@36d78489
+    - pip install lemaitre-bandpasses==0.4.0
     - pytest -v tests
   source_files:
     - tests
   requires:
     - git
     - git-lfs
+    - numba>=0.60.0  # from pandas[parquet,performance]->lemaitre-bandpasses==0.4.0
     - pip
     - pytest
     - pytest-cov
