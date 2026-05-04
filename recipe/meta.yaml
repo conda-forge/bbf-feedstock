@@ -34,7 +34,7 @@ requirements:
     - pip
   run:
     - python
-    - astropy
+    - astropy-base
     - gaiaxpy
     - getcalspec
     - healpy
