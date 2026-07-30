@@ -34,7 +34,7 @@ requirements:
     - pip
   run:
     - python
-    - astropy
+    - astropy-base
     - gaiaxpy
     - getcalspec
     - healpy
@@ -42,7 +42,7 @@ requirements:
     - numpy >=2
     - pandas
     - platformdirs
-    - scikit-sparse
+    - scikit-sparse <0.5
     - scipy >=1.10
     - sncosmo >=2.12
     - sparse_dot_mkl  # [not arm64]
@@ -58,7 +58,7 @@ test:
   requires:
     - git
     - git-lfs
-    - numba>=0.60.0  # from pandas[parquet,performance]->lemaitre-bandpasses==0.4.0
+    - numba >=0.60
     - pip
     - pytest
     - pytest-cov
