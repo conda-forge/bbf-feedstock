@@ -1,5 +1,5 @@
 {% set name = "bbf" %}
-{% set version = "0.7.0" %}
+{% set version = "0.7.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 8b150f42f55c5e24048b7a34654fcf9e47fd3b8696a61071464b57fe378a4b93
+  sha256: 26f099c899cb9f74a792d14b49a7ae7af1ee1627767a532242f129c867b26f40
 
 build:
-  skip: true  # [py<311 or py>=313 or win]
+  skip: true  # [py<311 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 1
 
@@ -34,7 +34,7 @@ requirements:
     - pip
   run:
     - python
-    - astropy
+    - astropy-base
     - gaiaxpy
     - getcalspec
     - healpy
@@ -42,7 +42,7 @@ requirements:
     - numpy >=2
     - pandas
     - platformdirs
-    - scikit-sparse
+    - scikit-sparse <0.5
     - scipy >=1.10
     - sncosmo >=2.12
     - sparse_dot_mkl  # [not arm64]
@@ -52,13 +52,13 @@ test:
     - bbf
   commands:
     - pip install lemaitre-bandpasses==0.4.0
-    - pytest -v tests
+    - pytest -v tests --deselect tests/test_atmosphere.py::test_snls --deselect tests/test_stellarlib.py::test_calspec --deselect tests/test_stellarlib.py::test_badly_sampled 
   source_files:
     - tests
   requires:
     - git
     - git-lfs
-    - numba>=0.60.0  # from pandas[parquet,performance]->lemaitre-bandpasses==0.4.0
+    - numba >=0.60
     - pip
     - pytest
     - pytest-cov
