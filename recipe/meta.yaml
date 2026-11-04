@@ -1,18 +1,18 @@
 {% set name = "bbf" %}
-{% set version = "0.7.1" %}
+{% set version = "0.7.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 26f099c899cb9f74a792d14b49a7ae7af1ee1627767a532242f129c867b26f40
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
+  sha256: 1e1b6454868f4c013999dd2ba3288fb61e1d8348dd3f16167b3da4bebaee71df
 
 build:
   skip: true  # [py<311 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -52,7 +52,7 @@ test:
     - bbf
   commands:
     - pip install lemaitre-bandpasses==0.4.0
-    - pytest -v tests --deselect tests/test_atmosphere.py::test_snls --deselect tests/test_stellarlib.py::test_calspec --deselect tests/test_stellarlib.py::test_badly_sampled 
+    - pytest -v tests --deselect tests/test_atmosphere.py::test_snls --deselect tests/test_stellarlib.py::test_calspec --deselect tests/test_stellarlib.py::test_badly_sampled
   source_files:
     - tests
   requires:
