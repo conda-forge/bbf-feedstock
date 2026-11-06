@@ -1,5 +1,5 @@
 {% set name = "bbf" %}
-{% set version = "0.7.2" %}
+{% set version = "0.8.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 1e1b6454868f4c013999dd2ba3288fb61e1d8348dd3f16167b3da4bebaee71df
+  sha256: 620c3d847e9e2a3e5db465c58a31ccdcfb15f06f4a48cec833c99b28ca62eddb
 
 build:
   skip: true  # [py<311 or win]
